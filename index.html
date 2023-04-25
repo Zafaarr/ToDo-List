@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/style.css" />
+    <title>To Do list</title>
+  </head>
+  <body>
+    <div class="wrapper">
+      <video autoplay muted loop class="myVideo">
+        <source src="/img/sea-157138.mp4" type="video/mp4" />
+      </video>
+      <div class="container">
+        <h1 class="title">To Do list APP</h1>
+        <div class="block">
+          <form class="form">
+            <input placeholder="Text input" class="input" type="text" />
+            <button type="submit" class="add">Add</button>
+            <!-- forma ishlashi uchun (type="submit") -->
+          </form>
+          <div class="filter">
+            Filterd by status:
+            <select class="filter_status">
+              <option value="all">All</option>
+              <option value="complited">Complited</option>
+              <option value="process">Process</option>
+            </select>
+          </div>
+          <h1 class="empty">Empty</h1>
+          <ul class="todosList"></ul>
+          <div class="clear">Clear all</div>
+        </div>
+      </div>
+    </div>
+    <script src="index.js"></script>
+  </body>
+</html>

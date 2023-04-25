@@ -1,0 +1,349 @@
+/* "*" belgisi barcha elementlarga murojaatni anglatadi*/
+* {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+/*bloklarning width ni o`zgarishini verstka uchun qulay qilib beradi*/
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+:focus,
+:active {
+  outline: none;
+}
+
+a:focus,
+a:active {
+  outline: none;
+}
+
+/*quyidagi teglarni blok qilib beradi*/
+nav,
+footer,
+header,
+aside {
+  display: block;
+}
+
+/*elementlarning hossalarini barcha brauzerlar uchun mo`tadillashtirib beradi*/
+html,
+body {
+  font-family: "Lato", sans-serif;
+  height: 100%;
+  width: 100%;
+  font-size: 100%;
+  line-height: 1;
+  font-size: 14px;
+  -ms-text-size-adjusst: 100%;
+  -moz-text-size-adjusst: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+/*quyidagi teglarning shriftlar oilasini vorislashi taminlanadi*/
+input,
+button,
+textarea {
+  font-family: inherit;
+}
+
+/*turli brauzerlarning o`ziga xos hususiyatlarini olib tashlash*/
+input:-ms-clear {
+  display: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:-moz-focus-innesr {
+  padding: 0;
+  border: 0;
+}
+
+a,
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+ul li {
+  list-style: none;
+}
+
+img {
+  vertical-align: top;
+}
+
+/*sarlavharning odatdagi stillarini nullashtirish*/
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+  font-weight: 400;
+}
+
+.wrapper {
+  height: 100vh;
+  background: #f5f5f5;
+}
+
+.myVideo {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+.container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.title {
+  text-align: center;
+  font-family: "Inter";
+  font-weight: 700;
+  font-size: 56px;
+  line-height: 68px;
+  color: #013ca6;
+  margin-bottom: 34px;
+}
+
+.block {
+  /* position: relative; */
+  background: #fbfbfb;
+  border-radius: 12px;
+  padding: 32px;
+  min-height: 290px;
+}
+
+.form {
+  display: flex;
+  margin-bottom: 11px;
+}
+
+.input {
+  padding: 0 16px;
+  background: #ffffff;
+  border: 1px solid #e5e9eb;
+  border-radius: 6px;
+  width: 320px;
+  height: 40px;
+  box-shadow: 0 0 10px black;
+}
+
+.input[type="text"] {
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.filter {
+  margin-bottom: 10px;
+}
+
+.add {
+  width: 60px;
+  height: 40px;
+  background: #4094f7;
+  border-radius: 6px;
+  color: white;
+  margin-left: 12px;
+}
+.add:hover {
+  background-color: #1252a5;
+}
+
+.todosList {
+  margin-bottom: 11px;
+}
+.empty {
+  display: none;
+  text-align: center;
+  font-size: 35px;
+  line-height: 50px;
+  font-weight: 600;
+  margin-top: 10%;
+  color: red;
+}
+
+.save {
+  display: none;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  margin-left: 57.5%;
+}
+.cancel {
+  display: none;
+  cursor: pointer;
+
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  margin-left: 63.5%;
+}
+.save:hover {
+  width: 25px;
+  height: 25px;
+  background-color: #111214;
+  border-radius: 5px;
+  color: #ffffff;
+}
+.cancel:hover {
+  width: 25px;
+  height: 25px;
+  background-color: #111214;
+  border-radius: 5px;
+  color: #ffffff;
+}
+
+.todo {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 24px;
+  width: 392px;
+  height: 48px;
+  background: #ffffff;
+  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  box-shadow: 0 0 10px black;
+}
+.todo {
+  margin-bottom: 11px;
+}
+
+.todo:last-child {
+  margin-bottom: 21px;
+}
+.todo_input {
+  flex-grow: 1;
+}
+
+.todo_input[type="text"] {
+  font-size: 15px;
+  font-weight: 600;
+  color: #000000;
+}
+
+.edit {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  margin-left: 63.5%;
+}
+.edit:hover {
+  width: 25px;
+  height: 25px;
+  background-color: #111214;
+  border-radius: 5px;
+  color: #ffffff;
+}
+
+.delete {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.delete:hover {
+  width: 25px;
+  height: 25px;
+  background-color: #111214;
+  border-radius: 5px;
+  color: #ffffff;
+}
+
+.clear {
+  cursor: pointer;
+  text-align: center;
+  padding-top: 0.7%;
+  font-size: 14px;
+  line-height: 24px;
+  letter-spacing: -0.006em;
+  color: #013ca6;
+  width: -moz-max-content;
+  width: max-content;
+  margin: 0 auto;
+}
+
+.clear {
+  width: 10em;
+  position: absolute;
+  bottom: 10px;
+  left: 30%;
+  height: 2.2em;
+  border: 3px ridge #013ca6;
+  outline: none;
+  background-color: transparent;
+  transition: 1s;
+  border-radius: 0.3em;
+  font-size: 16px;
+  font-weight: bold;
+}
+.clear:hover {
+  transform: scale(1.05);
+}
+
+.clear::after {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 3%;
+  width: 95%;
+  height: 40%;
+  transition: 0.5s;
+  transform-origin: center;
+}
+
+.clear::before {
+  content: "";
+  transform-origin: center;
+  position: absolute;
+  top: 80%;
+  left: 3%;
+  width: 95%;
+  height: 40%;
+  transition: 0.5s;
+}
+
+.clear:hover::before,
+.clear:hover::after {
+  transform: scale(0);
+}
+
+.clear:hover {
+  box-shadow: inset 0px 0px 25px #0b6ee7;
+}
+
+.input {
+  outline: none;
+  padding: 1em;
+  background-color: #ffffff;
+  transition: 300ms ease-in-out;
+}
+
+.input:focus {
+  background-color: rgb(252, 250, 250);
+  transform: scale(1.01);
+  box-shadow: 10px 10px 5px #969696, -10px -10px 5px #ffffff;
+}
