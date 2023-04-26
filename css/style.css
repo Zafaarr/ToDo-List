@@ -245,6 +245,16 @@ h6 {
   position: fixed;
   margin-left: 57.5%;
 }
+@media (max-width: 700px) {
+  .save {
+    margin-left: 53.5%;
+  }
+}
+@media (max-width: 450px) {
+  .save {
+    margin-left: 54.5%;
+  }
+}
 
 .cancel {
   display: none;
@@ -253,6 +263,16 @@ h6 {
   justify-content: center;
   position: fixed;
   margin-left: 63.5%;
+}
+@media (max-width: 700px) {
+  .cancel {
+    margin-left: 59.5%;
+  }
+}
+@media (max-width: 450px) {
+  .cancel {
+    margin-left: 62.5%;
+  }
 }
 
 .save:hover {
