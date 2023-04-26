@@ -10,6 +10,14 @@
   bottom: 0;
   min-width: 100%;
   min-height: 100%;
+  @media (max-width: 700px) {
+    min-width: 90%;
+    min-height: 90%;
+  }
+  // @media (max-width: 450px) {
+  //   max-width: 200%;
+  //   max-height: 300%;
+  // }
 }
 
 .container {
@@ -27,19 +35,43 @@
   line-height: 68px;
   color: #013ca6;
   margin-bottom: 34px;
+  @media (max-width: 700px) {
+    font-size: 45px;
+    margin-bottom: 28px;
+  }
+  @media (max-width: 450px) {
+    font-size: 40px;
+    margin-bottom: 20px;
+  }
 }
 
 .block {
-  // display: grid;
   background: #fbfbfb;
   border-radius: 12px;
   padding: 32px;
+  min-height: 300px;
+  position: relative;
+  @media (max-width: 700px) {
+    padding: 25px;
+  }
+  @media (max-width: 450px) {
+    padding: 17px;
+  }
 }
 
 .form {
   display: flex;
-  // justify-content: space-between;
   margin-bottom: 11px;
+}
+
+.empty {
+  display: none;
+  text-align: center;
+  font-size: 35px;
+  line-height: 50px;
+  font-weight: 600;
+  margin-top: 8%;
+  color: red;
 }
 
 .input {
@@ -50,6 +82,14 @@
   width: 320px;
   height: 40px;
   box-shadow: 0 0 10px black;
+  @media (max-width: 700px) {
+    width: 260px;
+    height: 35px;
+  }
+  @media (max-width: 450px) {
+    width: 220px;
+    height: 30px;
+  }
 }
 .input[type="text"] {
   font-size: 15px;
@@ -69,15 +109,53 @@
   &:hover {
     background-color: #1252a5;
   }
+  @media (max-width: 700px) {
+    width: 50px;
+    height: 35px;
+  }
+  @media (max-width: 450px) {
+    width: 50px;
+    height: 33px;
+  }
 }
 
 .todosList {
   margin-bottom: 11px;
 }
 
-.save,
+.todo:last-child {
+  margin-bottom: 21px;
+}
+
+.save {
+  display: none;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  margin-left: 57.5%;
+}
 .cancel {
   display: none;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  margin-left: 63.5%;
+}
+.save:hover {
+  width: 25px;
+  height: 25px;
+  background-color: #111214;
+  border-radius: 5px;
+  color: #ffffff;
+}
+.cancel:hover {
+  width: 25px;
+  height: 25px;
+  background-color: #111214;
+  border-radius: 5px;
+  color: #ffffff;
 }
 
 .todo {
@@ -91,8 +169,14 @@
   box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.05);
   border-radius: 8px;
   box-shadow: 0 0 10px black;
-  &:not(:last-child) {
-    margin-bottom: 11px;
+  margin-bottom: 12px;
+  @media (max-width: 700px) {
+    width: 320px;
+    height: 40px;
+  }
+  @media (max-width: 450px) {
+    width: 280px;
+    height: 35px;
   }
 }
 
@@ -106,11 +190,18 @@
 }
 
 .edit {
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   position: fixed;
   margin-left: 63.5%;
+  @media (max-width: 700px) {
+    margin-left: 59.5%;
+  }
+  @media (max-width: 450px) {
+    margin-left: 63.5%;
+  }
   &:hover {
     width: 25px;
     height: 25px;
@@ -121,6 +212,7 @@
 }
 
 .delete {
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -142,25 +234,38 @@
   line-height: 24px;
   letter-spacing: -0.006em;
   color: #013ca6;
+  width: -moz-max-content;
   width: max-content;
   margin: 0 auto;
   &:hover {
     transform: scale(1.05);
   }
+  @media (max-width: 450px) {
+    padding-top: 0.1%;
+  }
 }
 
 .clear {
   width: 10em;
-  position: relative;
+  position: absolute;
+  bottom: 10px;
+  left: 30%;
   height: 2.2em;
   border: 3px ridge #013ca6;
   outline: none;
   background-color: transparent;
-  // color: white;
   transition: 1s;
   border-radius: 0.3em;
   font-size: 16px;
   font-weight: bold;
+  @media (max-width: 700px) {
+    bottom: 5px;
+  }
+  @media (max-width: 450px) {
+    height: 1.7em;
+    top: 90%;
+    left: 25%;
+  }
 }
 
 .clear::after {
@@ -170,7 +275,6 @@
   left: 3%;
   width: 95%;
   height: 40%;
-  // background-color: #212121;
   transition: 0.5s;
   transform-origin: center;
 }
@@ -183,7 +287,6 @@
   left: 3%;
   width: 95%;
   height: 40%;
-  // background-color: #212121;
   transition: 0.5s;
 }
 

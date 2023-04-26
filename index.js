@@ -4,6 +4,7 @@ const clear = document.querySelector(".clear");
 const input = document.querySelector(".input");
 const select = document.querySelector(".filter_status");
 const empty = document.querySelector(".empty");
+// const todo_input = document.querySelector(".todo_input")
 
 // STATE
 let todos = [
@@ -34,7 +35,9 @@ const render = () => {
           <input ${checkBox == true ? "checked" : ""} onclick = "onCheck('${
       element.id
     }')" type="checkbox">
-            <input value="${element.value}" class="todo_input" type="text" />
+            <input disabled value="${
+              element.value
+            }" class="todo_input" type="text" />
             <div class="edit">
               <i onclick="onEdit('${
                 element.id
@@ -72,6 +75,13 @@ const onEdit = (id) => {
   editButton.style.display = "none";
   saveButton.style.display = "flex";
   cancelButton.style.display = "flex";
+
+  const todo_input = document.querySelector(".todo_input");
+  todo_input.removeAttribute("disabled");
+
+  const autoFocus = todo_input.value.length;
+  todo_input.setSelectionRange(autoFocus, autoFocus);
+  todo_input.focus();
 };
 
 const saveList = (id) => {
@@ -85,6 +95,9 @@ const saveList = (id) => {
   editButton.style.display = "flex";
   saveButton.style.display = "none";
   cancelButton.style.display = "none";
+
+  const todo_input = document.querySelector(".todo_input");
+  todo_input.disabled = true;
 };
 
 const closeList = (id) => {
@@ -98,6 +111,9 @@ const closeList = (id) => {
   editButton.style.display = "flex";
   saveButton.style.display = "none";
   cancelButton.style.display = "none";
+
+  const todo_input = document.querySelector(".todo_input");
+  todo_input.disabled = true;
 };
 
 const onCheck = (id) => {
