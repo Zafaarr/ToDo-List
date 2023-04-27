@@ -139,7 +139,6 @@
   }
   @media (max-width: 450px) {
     margin-left: 54.5%;
-
   }
 }
 .cancel {
@@ -193,6 +192,9 @@
   }
 }
 
+.lineThrough {
+  text-decoration: line-through;
+}
 .todo_input {
   flex-grow: 1;
 }

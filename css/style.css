@@ -317,6 +317,10 @@ h6 {
   }
 }
 
+.lineThrough {
+  text-decoration: line-through;
+}
+
 .todo_input {
   flex-grow: 1;
 }

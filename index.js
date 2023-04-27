@@ -4,8 +4,7 @@ const clear = document.querySelector(".clear");
 const input = document.querySelector(".input");
 const select = document.querySelector(".filter_status");
 const empty = document.querySelector(".empty");
-// const todo_input = document.querySelector(".todo_input")
-
+const todo_input = document.querySelector(".todo_input");
 // STATE
 let todos = [
   { value: "Reading book", isDone: false, id: "a1655" },
@@ -24,6 +23,7 @@ let filteredByStatus = (todos, status) => {
       return todos;
   }
 };
+// ondrop="drop(event)" ondragover="allowDrop(event)" draggable="true" ondragstart="drag(event)"
 
 // RENDERING
 const render = () => {
@@ -32,19 +32,13 @@ const render = () => {
     const checkBox = element.isDone;
     list.innerHTML += `
           <li class="todo" id="${element.id}"> 
-          <input ${checkBox == true ? "checked" : ""} onclick = "onCheck('${
-      element.id
-    }')" type="checkbox">
-            <input disabled value="${
-              element.value
-            }" class="todo_input" type="text" />
+          <input ${checkBox == true ? "checked" : ""} onclick = "onCheck('${element.id}')" type="checkbox">
+            <input  disabled="true" value="${element.value}" class="todo_input ${checkBox ? 'lineThrough': ''}" type="text" />
             <div class="edit">
-              <i onclick="onEdit('${
-                element.id
-              }')" class="bx bx-sm bxs-pencil"></i>
+              <i onclick="onEdit('${element.id}')" class="bx bx-sm bxs-pencil"></i>
             </div>
             <div class="save">
-            <i onclick="saveList('${element.id}')" class="bx bx-sm bx-save"></i>
+            <i onclick="saveList('${element.value}', '${element.id}')" class="bx bx-sm bx-save"></i>
           </div>
           <div class="cancel">
             <i onclick="closeList('${element.id}')" class="bx bx-md bx-x"></i>
@@ -59,9 +53,27 @@ const render = () => {
 };
 render(); // shu funksiya caqirib qoyilsa icida bor narsala ko`rinib turadi
 
+// function allowDrop(ev) {
+//   ev.preventDefault();
+// }
+
+// function drag(ev) {
+//   ev.dataTransfer.setData("text", ev.target.id);
+// }
+
+// function drop(ev) {
+//   ev.preventDefault();
+//   let data = ev.dataTransfer.getData("text");
+//   ev.target.appendChild(document.getElementById(data));
+// }
+
 const deleteTodo = (id) => {
   todos = todos.filter((el) => el.id != id);
   render();
+  if (list.innerHTML == "") {
+    // todos = [];
+    empty.style.display = "block";
+  }
 };
 
 const onEdit = (id) => {
@@ -76,28 +88,34 @@ const onEdit = (id) => {
   saveButton.style.display = "flex";
   cancelButton.style.display = "flex";
 
-  const todo_input = document.querySelector(".todo_input");
-  todo_input.removeAttribute("disabled");
+  const todo_input = document.querySelector(`#${id} .todo_input`);
+  todo_input.disabled = false;
 
   const autoFocus = todo_input.value.length;
   todo_input.setSelectionRange(autoFocus, autoFocus);
   todo_input.focus();
 };
 
-const saveList = (id) => {
-  const getButton = (id, className) =>
-    document.querySelector(`#${id} .${className}`);
+const saveList = (value, id) => {
+  let newInputValue = document.querySelector(`#${id} .todo_input`);
+  todos = todos.map((el) =>
+    el.id == id ? { ...el, value: newInputValue.value } : el
+  );
 
-  const editButton = getButton(id, "edit");
-  const saveButton = getButton(id, "save");
-  const cancelButton = getButton(id, "cancel");
+  // const getButton = (id, className) =>
+  //   document.querySelector(`#${id} .${className}`);
 
-  editButton.style.display = "flex";
-  saveButton.style.display = "none";
-  cancelButton.style.display = "none";
+  // const editButton = getButton(id, "edit");
+  // const saveButton = getButton(id, "save");
+  // const cancelButton = getButton(id, "cancel");
 
-  const todo_input = document.querySelector(".todo_input");
-  todo_input.disabled = true;
+  // editButton.style.display = "flex";
+  // saveButton.style.display = "none";
+  // cancelButton.style.display = "none";
+
+  // const todo_input = document.querySelector(".todo_input");
+  // todo_input.disabled = true;
+  render();
 };
 
 const closeList = (id) => {
@@ -118,9 +136,10 @@ const closeList = (id) => {
 
 const onCheck = (id) => {
   todos = todos.map((el) => (el.id == id ? { ...el, isDone: !el.isDone } : el));
-  render();
-  // console.log("check", todos);
+  render(); 
 };
+
+
 
 form.addEventListener("submit", (event) => {
   event.preventDefault(); // browzerri refresh bop ketishini oldini oladi
