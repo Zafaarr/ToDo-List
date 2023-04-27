@@ -5,12 +5,14 @@ const input = document.querySelector(".input");
 const select = document.querySelector(".filter_status");
 const empty = document.querySelector(".empty");
 const todo_input = document.querySelector(".todo_input");
+
 // STATE
 let todos = [
   { value: "Reading book", isDone: false, id: "a1655" },
   { value: "Play football", isDone: true, id: "a26546" },
 ]; // baza
 
+//Filter
 let status = "all";
 
 let filteredByStatus = (todos, status) => {
@@ -23,7 +25,6 @@ let filteredByStatus = (todos, status) => {
       return todos;
   }
 };
-// ondrop="drop(event)" ondragover="allowDrop(event)" draggable="true" ondragstart="drag(event)"
 
 // RENDERING
 const render = () => {
@@ -31,14 +32,26 @@ const render = () => {
   filteredByStatus(todos, status).forEach((element) => {
     const checkBox = element.isDone;
     list.innerHTML += `
-          <li class="todo" id="${element.id}"> 
-          <input ${checkBox == true ? "checked" : ""} onclick = "onCheck('${element.id}')" type="checkbox">
-            <input  disabled="true" value="${element.value}" class="todo_input ${checkBox ? 'lineThrough': ''}" type="text" />
+          <li class="todo" id="${
+            element.id
+          }" ondrop="drop(event)" ondragover="allowDrop(event)" draggable="true" ondragstart="drag(event)"> 
+          <input ${checkBox == true ? "checked" : ""} onclick = "onCheck('${
+      element.id
+    }')" type="checkbox">
+            <input  disabled="true" value="${
+              element.value
+            }" class="todo_input ${
+      checkBox ? "lineThrough" : ""
+    }" type="text" />
             <div class="edit">
-              <i onclick="onEdit('${element.id}')" class="bx bx-sm bxs-pencil"></i>
+              <i onclick="onEdit('${
+                element.id
+              }')" class="bx bx-sm bxs-pencil"></i>
             </div>
             <div class="save">
-            <i onclick="saveList('${element.value}', '${element.id}')" class="bx bx-sm bx-save"></i>
+            <i onclick="saveList('${element.value}', '${
+      element.id
+    }')" class="bx bx-sm bx-save"></i>
           </div>
           <div class="cancel">
             <i onclick="closeList('${element.id}')" class="bx bx-md bx-x"></i>
@@ -53,25 +66,24 @@ const render = () => {
 };
 render(); // shu funksiya caqirib qoyilsa icida bor narsala ko`rinib turadi
 
-// function allowDrop(ev) {
-//   ev.preventDefault();
-// }
+function allowDrop(ev) {
+  ev.preventDefault();
+}
 
-// function drag(ev) {
-//   ev.dataTransfer.setData("text", ev.target.id);
-// }
+function drag(ev) {
+  ev.dataTransfer.setData("text", ev.target.id);
+}
 
-// function drop(ev) {
-//   ev.preventDefault();
-//   let data = ev.dataTransfer.getData("text");
-//   ev.target.appendChild(document.getElementById(data));
-// }
+function drop(ev) {
+  ev.preventDefault();
+  let data = ev.dataTransfer.getData("text");
+  ev.target.appendChild(document.getElementById(data));
+}
 
 const deleteTodo = (id) => {
   todos = todos.filter((el) => el.id != id);
   render();
   if (list.innerHTML == "") {
-    // todos = [];
     empty.style.display = "block";
   }
 };
@@ -132,14 +144,14 @@ const closeList = (id) => {
 
   const todo_input = document.querySelector(".todo_input");
   todo_input.disabled = true;
+
+  render();
 };
 
 const onCheck = (id) => {
   todos = todos.map((el) => (el.id == id ? { ...el, isDone: !el.isDone } : el));
-  render(); 
+  render();
 };
-
-
 
 form.addEventListener("submit", (event) => {
   event.preventDefault(); // browzerri refresh bop ketishini oldini oladi
@@ -148,6 +160,8 @@ form.addEventListener("submit", (event) => {
     input.placeholder = "Empty";
     input.style.border = "3px solid red";
     input.style.boxShadow = "5px 5px 5px red";
+    // input.style.transform = "translateY(-5px)";
+
     input.style.transition = "all 0.1s";
     return;
   } else if (inputValue) {
