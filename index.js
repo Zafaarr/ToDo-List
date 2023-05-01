@@ -7,10 +7,7 @@ const empty = document.querySelector(".empty");
 const todo_input = document.querySelector(".todo_input");
 
 // STATE
-let todos = [
-  { value: "Reading book", isDone: false, id: "a1655" },
-  { value: "Play football", isDone: true, id: "a26546" },
-]; // baza
+let todos = JSON.parse(localStorage.getItem("todos")) || []; // baza
 
 //Filter
 let status = "all";
@@ -28,130 +25,192 @@ let filteredByStatus = (todos, status) => {
 
 // RENDERING
 const render = () => {
+  localStorage.setItem("todos", JSON.stringify(todos));
   list.innerHTML = "";
   filteredByStatus(todos, status).forEach((element) => {
     const checkBox = element.isDone;
     list.innerHTML += `
-          <li class="todo" id="${
-            element.id
-          }" ondrop="drop(event)" ondragover="allowDrop(event)" draggable="true" ondragstart="drag(event)"> 
-          <input ${checkBox == true ? "checked" : ""} onclick = "onCheck('${
-      element.id
-    }')" type="checkbox">
-            <input  disabled="true" value="${
-              element.value
-            }" class="todo_input ${
+        <li draggable=true class="todo" id="${element.id}"> 
+          <input class="boxchek" ${checkBox} type="checkbox">
+            <input disabled value="${element.value}" class="todo_input ${
       checkBox ? "lineThrough" : ""
     }" type="text" />
             <div class="edit">
-              <i onclick="onEdit('${
-                element.id
-              }')" class="bx bx-sm bxs-pencil"></i>
+             <i  class="bx bx-sm bxs-pencil"></i>
             </div>
             <div class="save">
-            <i onclick="saveList('${element.value}', '${
-      element.id
-    }')" class="bx bx-sm bx-save"></i>
-          </div>
-          <div class="cancel">
-            <i onclick="closeList('${element.id}')" class="bx bx-md bx-x"></i>
-          </div>
+             <i class="bx bx-sm bx-save"></i>
+            </div>
+            <div class="cancel">
+             <i class="bx bx-md bx-x"></i>
+            </div>
             <div class="delete">
-              <i onclick="deleteTodo('${
-                element.id
-              }')" class="bx bx-sm bx-trash"></i>
+             <i class="bx bx-sm bx-trash"></i>
             </div>
           </li>`;
   });
+  let startIndex;
+  let dropIndex;
+
+  const listElements = document.getElementsByClassName("todo");
+
+  for (let element of listElements) {
+    element.addEventListener("dragstart", (dragStart) => {
+      let start = element.id;
+      startIndex = todos.findIndex((el) => el.id == start);
+    });
+    element.addEventListener("dragend", (dragEnd) => {
+      dragEnd.preventDefault();
+
+      let drop_first = todos.splice(startIndex, 1);
+      todos.splice(dropIndex, 0, drop_first[0]);
+      render();
+    });
+    element.addEventListener("dragover", (dragOver) => {
+      dragOver.preventDefault();
+    });
+    element.addEventListener("dragleave", (dragLeave) => {
+      dragLeave.preventDefault();
+    });
+    element.addEventListener("drop", (dragDrop) => {
+      dragDrop.preventDefault();
+
+      let drop = element.id;
+      dropIndex = todos.findIndex((el) => el.id == drop);
+
+      // let temp = todos[startIndex];
+      // todos[startIndex] = todos[dropIndex];
+      // todos[dropIndex] = temp;  // O`rni almashadi.
+      render();
+    });
+  }
 };
 render(); // shu funksiya caqirib qoyilsa icida bor narsala ko`rinib turadi
 
-function allowDrop(ev) {
-  ev.preventDefault();
-}
+const mainContent = document.querySelector(".block");
 
-function drag(ev) {
-  ev.dataTransfer.setData("text", ev.target.id);
-}
+mainContent.addEventListener("click", (button) => {
+  const id = button.target.closest(".todo")?.id;
 
-function drop(ev) {
-  ev.preventDefault();
-  let data = ev.dataTransfer.getData("text");
-  ev.target.appendChild(document.getElementById(data));
-}
-
-const deleteTodo = (id) => {
-  todos = todos.filter((el) => el.id != id);
-  render();
-  if (list.innerHTML == "") {
-    empty.style.display = "block";
-  }
-};
-
-const onEdit = (id) => {
   const getButton = (id, className) =>
     document.querySelector(`#${id} .${className}`);
 
   const editButton = getButton(id, "edit");
   const saveButton = getButton(id, "save");
   const cancelButton = getButton(id, "cancel");
-
-  editButton.style.display = "none";
-  saveButton.style.display = "flex";
-  cancelButton.style.display = "flex";
 
   const todo_input = document.querySelector(`#${id} .todo_input`);
-  todo_input.disabled = false;
 
-  const autoFocus = todo_input.value.length;
-  todo_input.setSelectionRange(autoFocus, autoFocus);
-  todo_input.focus();
-};
+  if (button.target.closest(".clear")) {
+    todos = [];
+    render();
+    emptyList();
+  }
+  if (button.target.closest(".delete")) {
+    todos = todos.filter((el) => el.id !== id);
+    render();
+    if (list.innerHTML == "") {
+      empty.style.display = "block";
+    }
+  }
+  if (button.target.closest(".save")) {
+    let newInputValue = document.querySelector(`#${id} .todo_input`);
+    todos = todos.map((el) =>
+      el.id == id ? { ...el, value: newInputValue.value } : el
+    );
+    render();
+  }
+  if (button.target.closest(".edit")) {
+    editButton.style.display = "none";
+    saveButton.style.display = "flex";
+    cancelButton.style.display = "flex";
 
-const saveList = (value, id) => {
-  let newInputValue = document.querySelector(`#${id} .todo_input`);
-  todos = todos.map((el) =>
-    el.id == id ? { ...el, value: newInputValue.value } : el
-  );
+    todo_input.disabled = false;
 
-  // const getButton = (id, className) =>
-  //   document.querySelector(`#${id} .${className}`);
+    const autoFocus = todo_input.value.length;
+    todo_input.setSelectionRange(autoFocus, autoFocus);
+    todo_input.focus();
+  }
+  if (button.target.closest(".cancel")) {
+    editButton.style.display = "flex";
+    saveButton.style.display = "none";
+    cancelButton.style.display = "none";
 
-  // const editButton = getButton(id, "edit");
-  // const saveButton = getButton(id, "save");
-  // const cancelButton = getButton(id, "cancel");
+    todo_input.disabled = true;
+    render();
+  }
+  if (button.target.closest(".boxchek")) {
+    todos = todos.map((el) =>
+      el.id == id ? { ...el, isDone: !el.isDone } : el
+    );
+    render();
+  }
+});
 
-  // editButton.style.display = "flex";
-  // saveButton.style.display = "none";
-  // cancelButton.style.display = "none";
+// const clean = clear.addEventListener("click", () => {
+//   todos = [];
+//   render();
+//   emptyList();
+// });
 
-  // const todo_input = document.querySelector(".todo_input");
-  // todo_input.disabled = true;
-  render();
-};
+// const deleteTodo = (id) => {
+//   todos = todos.filter((el) => el.id != id);
+//   render();
+//   if (list.innerHTML == "") {
+//     empty.style.display = "block";
+//   }
+// };
 
-const closeList = (id) => {
-  const getButton = (id, className) =>
-    document.querySelector(`#${id} .${className}`);
+// const onEdit = (id) => {
+//   const getButton = (id, className) =>
+//     document.querySelector(`#${id} .${className}`);
 
-  const editButton = getButton(id, "edit");
-  const saveButton = getButton(id, "save");
-  const cancelButton = getButton(id, "cancel");
+//   const editButton = getButton(id, "edit");
+//   const saveButton = getButton(id, "save");
+//   const cancelButton = getButton(id, "cancel");
 
-  editButton.style.display = "flex";
-  saveButton.style.display = "none";
-  cancelButton.style.display = "none";
+//   editButton.style.display = "none";
+//   saveButton.style.display = "flex";
+//   cancelButton.style.display = "flex";
 
-  const todo_input = document.querySelector(".todo_input");
-  todo_input.disabled = true;
+//   const todo_input = document.querySelector(`#${id} .todo_input`);
+//   todo_input.disabled = false;
 
-  render();
-};
+//   const autoFocus = todo_input.value.length;
+//   todo_input.setSelectionRange(autoFocus, autoFocus);
+//   todo_input.focus();
+// };
 
-const onCheck = (id) => {
-  todos = todos.map((el) => (el.id == id ? { ...el, isDone: !el.isDone } : el));
-  render();
-};
+// const saveList = (value, id) => {
+//   let newInputValue = document.querySelector(`#${id} .todo_input`);
+//   todos = todos.map((el) =>
+//     el.id == id ? { ...el, value: newInputValue.value } : el
+//   );
+//   render();
+// };
+
+// const closeList = (id) => {
+//   const getButton = (id, className) =>
+//     document.querySelector(`#${id} .${className}`);
+
+//   const editButton = getButton(id, "edit");
+//   const saveButton = getButton(id, "save");
+//   const cancelButton = getButton(id, "cancel");
+
+//   editButton.style.display = "flex";
+//   saveButton.style.display = "none";
+//   cancelButton.style.display = "none";
+
+//   const todo_input = document.querySelector(".todo_input");
+//   todo_input.disabled = true;
+
+//   render();
+// };
+
+// const onCheck = (id) => {
+//   todos = todos.map((el) => (el.id == id ? { ...el, isDone: !el.isDone } : el));
+//   render();
+// };
 
 form.addEventListener("submit", (event) => {
   event.preventDefault(); // browzerri refresh bop ketishini oldini oladi
@@ -160,8 +219,6 @@ form.addEventListener("submit", (event) => {
     input.placeholder = "Empty";
     input.style.border = "3px solid red";
     input.style.boxShadow = "5px 5px 5px red";
-    // input.style.transform = "translateY(-5px)";
-
     input.style.transition = "all 0.1s";
     return;
   } else if (inputValue) {
@@ -177,6 +234,12 @@ form.addEventListener("submit", (event) => {
   notEmpty();
 });
 
+// if ((todos = [])) {
+//   empty.style.display = "block";
+// } else {
+//   empty.style.display = "none";
+// }
+
 function emptyList() {
   if ((todos = [])) {
     empty.style.display = "block";
@@ -184,16 +247,10 @@ function emptyList() {
 }
 
 function notEmpty() {
-  if (todos != null) {
+  if (todos !== null) {
     empty.style.display = "none";
   }
 }
-
-const clean = clear.addEventListener("click", () => {
-  todos = [];
-  render();
-  emptyList();
-});
 
 select.addEventListener("change", (event) => {
   status = event.target.value;
