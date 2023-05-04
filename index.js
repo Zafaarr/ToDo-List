@@ -235,6 +235,9 @@ form.addEventListener("submit", (event) => {
   if (!inputValue) {
     input.classList.add("shakeable");
     input.placeholder = "Please enter a new task";
+    input.style.border = "2px solid red";
+    input.style.boxShadow = "3px 3px 3px red";
+    input.style.transition = "all 0.1s";
     setTimeout(() => {
       input.classList.remove("shakeable");
     }, 1000);

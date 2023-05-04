@@ -203,9 +203,6 @@ h6 {
 
 .shakeable {
   animation: shake 0.4s;
-  border: 2px solid red;
-  box-shadow: 3px 3px 3px red;
-  transition: all 0.1s;
 }
 
 @keyframes shake {
