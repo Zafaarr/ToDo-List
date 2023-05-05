@@ -105,12 +105,6 @@ h6 {
   min-width: 100%;
   min-height: 100%;
 }
-@media (max-width: 700px) {
-  .myVideo {
-    min-width: 90%;
-    min-height: 90%;
-  }
-}
 
 .container {
   position: absolute;
@@ -334,7 +328,7 @@ h6 {
   margin-left: 2.5px;
   gap: 10px;
   padding: 0 24px;
-  width: 380px;
+  width: 386px;
   height: 48px;
   background: #ffffff;
   border-radius: 8px;
@@ -440,14 +434,14 @@ h6 {
 @media (max-width: 700px) {
   .clear {
     bottom: 5px;
-    left: 28%;
+    left: 30%;
   }
 }
 @media (max-width: 450px) {
   .clear {
     height: 1.7em;
     top: 90%;
-    left: 26.5%;
+    left: 26%;
   }
 }
 

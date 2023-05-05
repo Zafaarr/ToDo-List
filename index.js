@@ -32,12 +32,8 @@ const render = () => {
     const checkBox = element.isDone;
     list.innerHTML += `
         <li draggable=true class="todo" id="${element.id}"> 
-          <input class="checkbox" ${
-            checkBox == true ? "checked" : ""
-          } type="checkbox">
-            <input disabled value="${element.value}" class="todo_input ${
-      checkBox ? "lineThrough" : ""
-    }" type="text" />
+          <input class="checkbox" ${checkBox == true ? "checked" : ""} type="checkbox">
+            <input disabled value="${element.value}" class="todo_input ${ checkBox ? "lineThrough" : ""}" type="text" />
             <div class="edit">
              <i class="bx bx-sm bxs-pencil"></i>
             </div>
@@ -63,31 +59,23 @@ const render = () => {
     element.addEventListener("dragstart", (dragStart) => {
       let start = element.id;
       startIndex = todos.findIndex((el) => el.id == start);
-      dragStart.target.closest(
-        ".todo"
-      ).style.cssText = `opacity:1;border:1px solid black;`;
+      dragStart.target.closest(".todo").style.cssText = `opacity:1;border:1px solid black;`;
     });
     element.addEventListener("dragend", (dragEnd) => {
       dragEnd.preventDefault();
-      dragEnd.target.closest(
-        ".todo"
-      ).style.cssText = `border-bottom: 1px solid black`;
+      dragEnd.target.closest(".todo").style.cssText = `border-bottom: 1px solid black`;
 
       let drop_first = todos.splice(startIndex, 1);
-      todos.splice(dropIndex, 0, drop_first[0]);
+      todos.splice(dropIndex, 0, drop_first[0]); // ?
       render();
     });
     element.addEventListener("dragover", (dragOver) => {
       dragOver.preventDefault();
-      dragOver.target.closest(
-        ".todo"
-      ).style.cssText = `border-bottom:1px solid black;`;
+      dragOver.target.closest(".todo").style.cssText = `border-bottom:1px solid black;`;
     });
     element.addEventListener("dragleave", (dragLeave) => {
       dragLeave.preventDefault();
-      dragLeave.target.closest(
-        ".todo"
-      ).style.cssText = `border-bottom:1px solid white;`;
+      dragLeave.target.closest( ".todo").style.cssText = `border-bottom:1px solid white;`;
     });
     element.addEventListener("drop", (dragDrop) => {
       dragDrop.preventDefault();
@@ -269,6 +257,6 @@ function notEmpty() {
 todos.length == 0 ? emptyList() : notEmpty();
 
 select.addEventListener("change", (event) => {
-  status = event.target.value;
+  status = event.target.value; // ?
   render();
 });
