@@ -185,6 +185,7 @@
   }
 }
 .save:hover {
+  transition: 0.5s;
   width: 25px;
   height: 25px;
   background-color: #111214;
@@ -192,6 +193,7 @@
   color: #ffffff;
 }
 .cancel:hover {
+  transition: 0.5s;
   width: 25px;
   height: 25px;
   background-color: #111214;
@@ -244,6 +246,7 @@
   position: absolute;
   margin-left: 72.5%;
   &:hover {
+    transition: 0.5s;
     width: 25px;
     height: 25px;
     background-color: #111214;
@@ -260,6 +263,7 @@
   position: absolute;
   margin-left: 81%;
   &:hover {
+    transition: 0.5s;
     width: 25px;
     height: 25px;
     background-color: #111214;

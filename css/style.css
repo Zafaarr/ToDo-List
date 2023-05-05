@@ -306,6 +306,7 @@ h6 {
 }
 
 .save:hover {
+  transition: 0.5s;
   width: 25px;
   height: 25px;
   background-color: #111214;
@@ -314,6 +315,7 @@ h6 {
 }
 
 .cancel:hover {
+  transition: 0.5s;
   width: 25px;
   height: 25px;
   background-color: #111214;
@@ -373,6 +375,7 @@ h6 {
   margin-left: 72.5%;
 }
 .edit:hover {
+  transition: 0.5s;
   width: 25px;
   height: 25px;
   background-color: #111214;
@@ -389,6 +392,7 @@ h6 {
   margin-left: 81%;
 }
 .delete:hover {
+  transition: 0.5s;
   width: 25px;
   height: 25px;
   background-color: #111214;

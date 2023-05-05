@@ -32,12 +32,8 @@ const render = () => {
     const checkBox = element.isDone;
     list.innerHTML += `
         <li draggable=true class="todo" id="${element.id}"> 
-          <input class="checkbox" ${
-            checkBox == true ? "checked" : ""
-          } type="checkbox">
-            <input disabled value="${element.value}" class="todo_input ${
-      checkBox ? "lineThrough" : ""
-    }" type="text" />
+          <input class="checkbox" ${ checkBox == true ? "checked" : "" } type="checkbox">
+            <input disabled value="${element.value}" class="todo_input ${checkBox ? "lineThrough" : ""}" type="text" />
             <div class="edit">
              <i class="bx bx-sm bxs-pencil"></i>
             </div>
@@ -74,7 +70,7 @@ const render = () => {
       ).style.cssText = `border-bottom: 1px solid black`;
 
       let drop_first = todos.splice(startIndex, 1);
-      todos.splice(dropIndex, 0, drop_first[0]); // ?
+      todos.splice(dropIndex, 0, drop_first[0]);
       render();
     });
     element.addEventListener("dragover", (dragOver) => {
@@ -275,6 +271,6 @@ function notEmpty() {
 todos.length == 0 ? emptyList() : notEmpty();
 
 select.addEventListener("change", (event) => {
-  status = event.target.value; // ?
+  status = event.target.value; 
   render();
 });
